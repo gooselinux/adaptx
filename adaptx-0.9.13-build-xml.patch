@@ -1,0 +1,11 @@
+--- src/build.xml.orig	2007-04-18 17:10:00.000000000 -0400
++++ src/build.xml	2007-04-18 17:37:22.000000000 -0400
+@@ -121,7 +121,7 @@
+     <mkdir   dir="${build}/doc/javadoc" />
+     <javadoc sourcepath="${source}/main" destdir="${build}/doc/javadoc"
+              doctitle="Adaptx" public="true" noindex="true" author="true"
+-             packagenames="org.exolab.adaptx.*" />
++             packagenames="org.exolab.adaptx.*" source="1.4"/>
+   </target>
+ 
+ 

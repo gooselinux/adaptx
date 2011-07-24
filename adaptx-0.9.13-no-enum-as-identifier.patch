@@ -1,0 +1,142 @@
+diff -up adaptx-0.9.14-src/src/main/org/exolab/adaptx/jaxp/transform/IdentityTransformer.java.BAD adaptx-0.9.14-src/src/main/org/exolab/adaptx/jaxp/transform/IdentityTransformer.java
+--- adaptx-0.9.14-src/src/main/org/exolab/adaptx/jaxp/transform/IdentityTransformer.java.BAD	2007-10-17 13:48:06.000000000 -0400
++++ adaptx-0.9.14-src/src/main/org/exolab/adaptx/jaxp/transform/IdentityTransformer.java	2007-10-17 13:48:25.000000000 -0400
+@@ -424,9 +424,9 @@ public class IdentityTransformer 
+         }
+         else {
+             _outputProperties = new Properties();
+-            Enumeration enum = properties.keys();
+-            while (enum.hasMoreElements()) {
+-                String name = (String)enum.nextElement();
++            Enumeration MyEnum = properties.keys();
++            while (MyEnum.hasMoreElements()) {
++                String name = (String)MyEnum.nextElement();
+                 String value = properties.getProperty(name);
+                 _outputProperties.setProperty(name, value);
+             }
+diff -up adaptx-0.9.14-src/src/main/org/exolab/adaptx/jaxp/transform/TransformerImpl.java.BAD adaptx-0.9.14-src/src/main/org/exolab/adaptx/jaxp/transform/TransformerImpl.java
+--- adaptx-0.9.14-src/src/main/org/exolab/adaptx/jaxp/transform/TransformerImpl.java.BAD	2007-10-17 13:48:46.000000000 -0400
++++ adaptx-0.9.14-src/src/main/org/exolab/adaptx/jaxp/transform/TransformerImpl.java	2007-10-17 13:49:15.000000000 -0400
+@@ -454,9 +454,9 @@ public class TransformerImpl 
+         else {
+             _outputProperties = new Properties();
+             XSLOutput output = new XSLOutput();
+-            Enumeration enum = properties.keys();
+-            while (enum.hasMoreElements()) {
+-                String name = (String)enum.nextElement();
++            Enumeration MyEnum = properties.keys();
++            while (MyEnum.hasMoreElements()) {
++                String name = (String)MyEnum.nextElement();
+                 String value = properties.getProperty(name);
+                 _outputProperties.setProperty(name, value);
+                 try {
+diff -up adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/XSLTProcessor.java.BAD adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/XSLTProcessor.java
+--- adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/XSLTProcessor.java.BAD	2007-10-17 13:50:28.000000000 -0400
++++ adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/XSLTProcessor.java	2007-10-17 13:50:49.000000000 -0400
+@@ -1266,9 +1266,9 @@ public class XSLTProcessor 
+ 	 * @param ruleProcessor the RuleProcessor to copy parameters to
+ 	**/
+ 	private void copyParams(RuleProcessor ruleProcessor) {
+-	    Enumeration enum = params.keys();
+-	    while (enum.hasMoreElements()) {
+-	        String name = (String)enum.nextElement();
++	    Enumeration MyEnum = params.keys();
++	    while (MyEnum.hasMoreElements()) {
++	        String name = (String)MyEnum.nextElement();
+ 	        ruleProcessor.setParameter(name, params.getProperty(name));
+ 	    }
+ 	} //-- copyParams
+diff -up adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/XSLTStylesheet.java.BAD adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/XSLTStylesheet.java
+--- adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/XSLTStylesheet.java.BAD	2007-10-17 13:50:56.000000000 -0400
++++ adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/XSLTStylesheet.java	2007-10-17 13:52:01.000000000 -0400
+@@ -569,10 +569,10 @@ public class XSLTStylesheet extends XSLO
+ 	    if (namespace == null) return null;
+ 	    String qns = (String) quotedns.get(namespace);
+ 	    if (qns != null) {
+-	        Enumeration enum = namespaces.keys();
++	        Enumeration MyEnum = namespaces.keys();
+     	    String key;
+-	        while (enum.hasMoreElements()) {
+-	            key = (String)enum.nextElement();
++	        while (MyEnum.hasMoreElements()) {
++	            key = (String)MyEnum.nextElement();
+ 	            if (qns.equals(namespaces.get(key)))
+ 	                return key;
+ 	        }
+@@ -1094,16 +1094,16 @@ public class XSLTStylesheet extends XSLO
+         
+         // combine global variables and parameters
+         try {
+-            Enumeration enum = xsl.getVariables();
+-            while (enum.hasMoreElements()) {
+-                Variable v = (Variable) enum.nextElement();
++            Enumeration MyEnum = xsl.getVariables();
++            while (MyEnum.hasMoreElements()) {
++                Variable v = (Variable) MyEnum.nextElement();
+                 Variable tmp = getVariable(v.getName());
+                 if (tmp != null) variables.remove(tmp);
+                 addVariable(v, true);
+             }
+-            enum = xsl.getParameters();
+-            while (enum.hasMoreElements()) {
+-                Param p = (Param) enum.nextElement();
++            MyEnum = xsl.getParameters();
++            while (MyEnum.hasMoreElements()) {
++                Param p = (Param) MyEnum.nextElement();
+                 Param tmp = getParameter(p.getName());
+                 if (tmp != null) parameters.remove(tmp);
+                 addParam(p);
+diff -up adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/RuleProcessor.java.BAD adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/RuleProcessor.java
+--- adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/RuleProcessor.java.BAD	2007-10-17 13:49:26.000000000 -0400
++++ adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/RuleProcessor.java	2007-10-17 13:50:20.000000000 -0400
+@@ -262,7 +262,7 @@ public class RuleProcessor extends Error
+         
+         ResultFormatter rf = ps.getResultFormatter();
+             
+-        Enumeration enum = null;
++        Enumeration MyEnum = null;
+         //-- copy top-level declared namespaces
+         /*
+         Hashtable namespaces = stylesheet.getNamespaces();
+@@ -304,9 +304,9 @@ public class RuleProcessor extends Error
+         
+         // Process top-level parameters
+         ScopedVariableSet vars = ps.getVariables();
+-        enum = stylesheet.getParameters();
+-        while (enum.hasMoreElements()) {
+-            Param param = (Param)enum.nextElement();
++        MyEnum = stylesheet.getParameters();
++        while (MyEnum.hasMoreElements()) {
++            Param param = (Param)MyEnum.nextElement();
+             //-- first check passed in parameters
+             String value = getParameter(param.getName());
+             if (value != null) {
+@@ -322,9 +322,9 @@ public class RuleProcessor extends Error
+         }
+         
+         //-- Process top-level variables
+-        enum = stylesheet.getVariables();
+-        while (enum.hasMoreElements()) {
+-            Variable variable = (Variable)enum.nextElement();
++        MyEnum = stylesheet.getVariables();
++        while (MyEnum.hasMoreElements()) {
++            Variable variable = (Variable)MyEnum.nextElement();
+             XPathResult value = processVariable(variable, ps);
+             if (value != null) {
+                 vars.setVariable(variable.getName(), value);
+diff -up adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/handlers/ResultHandlerAdapter2.java.BAD adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/handlers/ResultHandlerAdapter2.java
+--- adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/handlers/ResultHandlerAdapter2.java.BAD	2007-10-17 13:52:09.000000000 -0400
++++ adaptx-0.9.14-src/src/main/org/exolab/adaptx/xslt/handlers/ResultHandlerAdapter2.java	2007-10-17 13:52:24.000000000 -0400
+@@ -200,9 +200,9 @@ public class ResultHandlerAdapter2 imple
+             _handler.endElement(uri, name, name);
+         }
+         
+-        Enumeration enum = _namespaces.getLocalNamespacePrefixes();
+-        while (enum.hasMoreElements()) {
+-            _handler.endPrefixMapping((String)enum.nextElement());
++        Enumeration MyEnum = _namespaces.getLocalNamespacePrefixes();
++        while (MyEnum.hasMoreElements()) {
++            _handler.endPrefixMapping((String)MyEnum.nextElement());
+         }
+         _namespaces = _namespaces.getParent();
+         

@@ -1,0 +1,16 @@
+--- ./src/main/org/exolab/adaptx/jaxp/transform/TransformerFactoryImpl.java.sav	2006-07-19 14:06:26.000000000 -0400
++++ ./src/main/org/exolab/adaptx/jaxp/transform/TransformerFactoryImpl.java	2006-07-19 14:07:13.000000000 -0400
+@@ -193,6 +193,13 @@
+         return false;
+     } //-- getFeature
+ 
++    // DOM Level 3 stub
++    public void setFeature(String name, boolean value)
++      throws TransformerConfigurationException
++    {
++      throw new RuntimeException("not implemented");
++    }  
++
+     /**
+      * Get the object that is used by default during the transformation
+      * to resolve URIs used in document(), xsl:import, or xsl:include.
